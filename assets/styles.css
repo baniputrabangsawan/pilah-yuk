@@ -173,8 +173,6 @@
 .stCameraInput video,
 .stCameraInput canvas,
 .stCameraInput img {
-    aspect-ratio: 4 / 3;
-    max-height: min(52svh, 420px);
     object-fit: cover;
 }
 
