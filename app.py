@@ -40,7 +40,6 @@ def show_header() -> None:
     st.markdown(
         """
         <header class="app-header">
-            <div class="brand-mark" aria-hidden="true">PY</div>
             <div>
                 <span class="eyebrow">Klasifikasi sampah berbasis AI</span>
                 <h1>Pilah Yuk</h1>
@@ -68,7 +67,21 @@ def show_recommendation(category: str) -> None:
     st.markdown(f"- {item.facility_note}")
 
 
-def show_empty_state() -> None:
+def show_empty_state(source_type: str) -> None:
+    """Show guidance relevant to the selected input source."""
+    if source_type == "Kamera":
+        st.markdown(
+            """
+            <div class="camera-state">
+                <span class="section-label">Kamera siap</span>
+                <h3>Ambil satu foto sampah</h3>
+                <p>Pastikan objek terlihat jelas sebelum menekan tombol ambil foto.</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        return
+
     st.markdown(
         """
         <div class="empty-state">
@@ -202,7 +215,7 @@ def main() -> None:
                 if source_type == "Unggah file"
                 else st.camera_input("Ambil foto sampah")
             )
-            st.caption("JPEG atau PNG · Maksimal 10 MB · Diproses tanpa disimpan")
+            st.caption("JPEG atau PNG · Maks. 10 MB · Tidak disimpan")
 
             image = None
             if source is not None:
@@ -231,7 +244,7 @@ def main() -> None:
 
         with result_column, st.container(border=True, key="result_panel"):
             if result is None:
-                show_empty_state()
+                show_empty_state(source_type)
             else:
                 show_result(result)
 

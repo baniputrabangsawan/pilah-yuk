@@ -7,104 +7,110 @@
     --py-text: #17201a;
     --py-muted: #5f6b63;
     --py-border: #dde5df;
+    --page-max-width: 1100px;
+    --mobile-padding: 16px;
+    --card-radius: 16px;
+    --touch-target: 48px;
+    --safe-bottom: calc(96px + env(safe-area-inset-bottom));
 }
 
+/* Page frame: mobile-first with room for browser gesture controls. */
 .stApp {
+    overflow-x: clip;
     background: var(--py-background);
     color: var(--py-text);
-    overflow-x: clip;
 }
 
 .stMainBlockContainer {
+    box-sizing: border-box;
     width: 100%;
-    max-width: 1080px;
+    max-width: var(--page-max-width);
     margin-inline: auto;
-    padding-inline: 1.5rem;
-    padding-top: 2.25rem;
-    padding-bottom: 3rem;
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-right: max(var(--mobile-padding), env(safe-area-inset-right));
+    padding-bottom: var(--safe-bottom);
+    padding-left: max(var(--mobile-padding), env(safe-area-inset-left));
 }
 
 .stMainBlockContainer,
 .stMainBlockContainer * {
     box-sizing: border-box;
+    min-width: 0;
 }
 
 .stMainBlockContainer p,
 .stMainBlockContainer li,
 .stMainBlockContainer label,
 .stMainBlockContainer button {
-    font-size: max(0.95rem, 15px);
-    line-height: 1.55;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
-[class*="st-key-workspace"],
-[class*="st-key-workspace"] [data-testid="stHorizontalBlock"],
-[class*="st-key-workspace"] [data-testid="column"] {
-    min-width: 0;
-    max-width: 100%;
-}
-
+/* Compact identity without decorative elements that consume mobile space. */
 .app-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.75rem;
-}
-
-.brand-mark {
-    display: grid;
-    place-items: center;
-    flex: 0 0 3rem;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background: var(--py-green-dark);
-    color: white;
-    font-size: 0.78rem;
-    font-weight: 750;
-    letter-spacing: 0.08em;
+    margin-bottom: 1.1rem;
 }
 
 .app-header h1 {
-    margin: 0.15rem 0 0.1rem;
+    margin: 0.15rem 0 0.25rem;
     color: var(--py-text);
-    font-size: clamp(2.375rem, 4vw, 2.625rem);
+    font-size: clamp(2rem, 9vw, 3.25rem);
     line-height: 1.05;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.04em;
 }
 
 .app-header p {
+    max-width: 32rem;
     margin: 0;
     color: var(--py-muted);
-    font-size: clamp(1.125rem, 2vw, 1.375rem);
-    line-height: 1.35;
+    font-size: clamp(1.05rem, 5vw, 1.5rem);
+    line-height: 1.45;
     overflow-wrap: anywhere;
 }
 
 .eyebrow,
 .section-label {
     color: var(--py-green-dark);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     font-weight: 750;
-    letter-spacing: 0.09em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
+/* Panels remain content-height; no fixed camera or empty-state height. */
 [class*="st-key-input_panel"],
 [class*="st-key-result_panel"] {
-    min-height: 31rem;
-    background: var(--py-white);
+    width: 100%;
+    min-height: 0;
+    padding: 1.125rem !important;
     border-color: var(--py-border) !important;
-    border-radius: 0.65rem !important;
-    padding: 1.35rem !important;
+    border-radius: var(--card-radius) !important;
+    background: var(--py-white);
 }
 
 [class*="st-key-input_panel"] h3,
 [class*="st-key-result_panel"] h3 {
-    margin-top: 0.25rem;
+    margin-top: 0.2rem;
     color: var(--py-text);
-    font-size: 1.25rem;
-    letter-spacing: -0.015em;
+    font-size: clamp(1.375rem, 6vw, 1.75rem);
+    line-height: 1.2;
+}
+
+/* Source selection has two equal, thumb-friendly choices. */
+.stSegmentedControl,
+.stSegmentedControl > div {
+    width: 100%;
+    max-width: 100%;
+}
+
+.stSegmentedControl > div {
+    display: flex;
+}
+
+.stSegmentedControl button {
+    min-height: var(--touch-target);
+    flex: 1 1 50%;
+    white-space: normal;
 }
 
 .stSegmentedControl [data-testid="stBaseButton-segmented_controlActive"] {
@@ -113,28 +119,20 @@
     color: var(--py-green-dark);
 }
 
-.stSegmentedControl,
-.stSegmentedControl > div,
-.stSegmentedControl button {
-    max-width: 100%;
-}
-
-.stSegmentedControl button {
-    min-height: 2.75rem;
-    white-space: normal;
-}
-
+/* Upload, camera, and preview stay within the panel. */
 .stFileUploader,
 .stFileUploader > div,
 .stFileUploader section,
 .stCameraInput,
-.stCameraInput > div {
+.stCameraInput > div,
+.stImage,
+.stImage > div {
     width: 100%;
-    min-width: 0;
     max-width: 100%;
 }
 
 .stFileUploader section {
+    padding: 0.875rem 0.75rem;
     border-color: var(--py-border);
     background: #fbfcfb;
 }
@@ -145,7 +143,7 @@
 
 .stFileUploader section button,
 .stCameraInput button {
-    min-height: 2.75rem;
+    min-height: var(--touch-target);
 }
 
 .stFileUploader [data-testid="stFileUploaderFile"],
@@ -157,101 +155,119 @@
     text-overflow: ellipsis;
 }
 
-.stImage,
-.stImage > div,
 .stImage img,
 .stCameraInput video,
 .stCameraInput canvas {
+    display: block;
+    width: 100% !important;
     max-width: 100% !important;
-}
-
-.stImage img,
-.stCameraInput video,
-.stCameraInput canvas {
     height: auto !important;
+    max-height: min(46svh, 420px);
+    border-radius: 12px;
     object-fit: contain;
 }
 
+.stCameraInput video,
+.stCameraInput canvas {
+    aspect-ratio: 4 / 3;
+    max-height: min(52svh, 420px);
+    object-fit: cover;
+}
+
 .stButton > button[kind="primary"] {
-    min-height: 2.8rem;
+    width: 100%;
+    min-height: var(--touch-target);
     border-color: var(--py-green-dark);
     background: var(--py-green-dark);
+    color: #ffffff;
+    font-size: 1rem;
     font-weight: 700;
     transition: background-color 150ms ease, border-color 150ms ease;
 }
 
-.stButton > button[kind="primary"]:hover {
+.stButton > button[kind="primary"]:hover,
+.stButton > button[kind="primary"]:focus-visible {
     border-color: var(--py-green);
     background: var(--py-green);
 }
 
 .stButton > button[kind="primary"]:disabled {
-    border-color: var(--py-border);
-    background: #e8ede9;
-    color: #7a857d;
+    border-color: #b9c6bc;
+    background: #d6dfd8;
+    color: #425048;
+    opacity: 1;
+}
+
+.stButton > button:focus-visible,
+.stSegmentedControl button:focus-visible {
+    outline: 3px solid #86efac;
+    outline-offset: 2px;
+}
+
+.empty-state,
+.camera-state {
+    padding: 1rem 0.25rem;
 }
 
 .empty-state {
-    display: flex;
-    min-height: 17rem;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 2rem;
     text-align: center;
 }
 
+.empty-state h3,
+.camera-state h3 {
+    margin: 0 0 0.4rem !important;
+}
+
+.empty-state p,
+.camera-state p {
+    max-width: 32rem;
+    margin: 0;
+    color: var(--py-muted);
+}
+
 .empty-symbol {
-    width: 3.25rem;
-    height: 3.25rem;
-    margin-bottom: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0 auto 0.75rem;
     border: 2px solid var(--py-green);
     border-radius: 50% 50% 50% 18%;
     background: var(--py-green-light);
     transform: rotate(-12deg);
 }
 
-.empty-state h3 {
-    margin: 0 0 0.4rem !important;
-}
-
-.empty-state p {
-    max-width: 24rem;
-    margin: 0;
-    color: var(--py-muted);
-}
-
 .photo-tips {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.6rem;
-    padding-top: 1.1rem;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
     border-top: 1px solid var(--py-border);
 }
 
 .photo-tips span {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
     color: var(--py-muted);
     font-size: 0.875rem;
     line-height: 1.45;
-    text-align: center;
 }
 
 .photo-tips span::before {
-    content: "";
-    display: block;
     width: 0.4rem;
     height: 0.4rem;
-    margin: 0 auto 0.5rem;
+    flex: 0 0 0.4rem;
     border-radius: 50%;
     background: var(--py-green);
+    content: "";
 }
 
 .result-category {
-    margin: -0.15rem 0 1.25rem;
+    margin: -0.15rem 0 1rem;
     color: var(--py-green-dark);
-    font-size: clamp(1.7rem, 4vw, 2.15rem);
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
     font-weight: 760;
     letter-spacing: -0.035em;
+    overflow-wrap: anywhere;
 }
 
 .confidence-value {
@@ -269,34 +285,34 @@
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    min-width: 0;
-    padding: 0.5rem 0;
+    padding: 0.65rem 0;
     border-bottom: 1px solid #edf1ee;
     color: var(--py-muted);
 }
 
 .prediction-row span {
-    min-width: 0;
     overflow-wrap: anywhere;
 }
 
 .prediction-row strong {
     flex: 0 0 auto;
-}
-
-.prediction-row strong {
     color: var(--py-text);
 }
 
 .result-separator {
     height: 1px;
-    margin: 1.4rem 0;
+    margin: 1.25rem 0;
     background: var(--py-border);
 }
 
+.stAlert {
+    width: 100%;
+    border-radius: 0.55rem;
+}
+
 [class*="st-key-ai_note"] {
-    margin-top: 1.5rem;
-    padding: 1rem 1.15rem;
+    margin-top: 1.25rem;
+    padding: 1.125rem;
     border-left: 3px solid var(--py-green);
     background: #eff8f1;
 }
@@ -305,33 +321,33 @@
     color: #405047;
 }
 
-.stAlert {
-    border-radius: 0.45rem;
-}
-
-details {
-    max-width: 100%;
-    border-color: var(--py-border) !important;
-    border-radius: 0.45rem !important;
-}
-
-.stAlert,
-.stProgress,
 details,
 code {
-    min-width: 0;
+    max-width: 100%;
     overflow-wrap: anywhere;
 }
 
-@media (max-width: 768px) {
-    .stMainBlockContainer {
-        width: 100%;
-        padding: 1.25rem 1.125rem 2rem;
+details {
+    border-color: var(--py-border) !important;
+    border-radius: 0.55rem !important;
+}
+
+/* Small mobile: stack source choices only when two equal buttons no longer fit. */
+@media (max-width: 339px) {
+    .stSegmentedControl > div {
+        flex-direction: column;
     }
 
+    .stSegmentedControl button {
+        flex-basis: var(--touch-target);
+    }
+}
+
+/* Tablet and below: input always precedes status/results. */
+@media (max-width: 1023px) {
     [class*="st-key-workspace"] [data-testid="stHorizontalBlock"] {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1.25rem;
     }
 
     [class*="st-key-workspace"] [data-testid="column"] {
@@ -339,169 +355,36 @@ code {
         flex: 1 1 100% !important;
     }
 
-    .app-header {
-        align-items: flex-start;
-        gap: 0.8rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .brand-mark {
-        flex-basis: 2.75rem;
-        width: 2.75rem;
-        height: 2.75rem;
-    }
-
-    .app-header h1 {
-        font-size: clamp(1.75rem, 7vw, 2rem);
-        line-height: 1.1;
-    }
-
-    .app-header p {
-        max-width: 30rem;
-        font-size: clamp(1.125rem, 4.8vw, 1.3rem);
-    }
-
     [class*="st-key-input_panel"],
     [class*="st-key-result_panel"] {
-        min-height: auto;
-        padding: 1.125rem !important;
-    }
-
-    .stButton > button[kind="primary"] {
-        width: 100%;
-        min-height: 3rem;
-    }
-
-    .stFileUploader section {
-        padding-inline: 0.75rem;
-    }
-
-    .stImage img,
-    .stCameraInput video,
-    .stCameraInput canvas {
-        max-height: 65vh;
-    }
-
-    .empty-state {
-        min-height: 13rem;
-        padding: 1.25rem 0.5rem;
-    }
-
-    .photo-tips {
-        grid-template-columns: 1fr;
-    }
-
-    .photo-tips span {
-        display: flex;
-        align-items: center;
-        gap: 0.55rem;
-        text-align: left;
-    }
-
-    .photo-tips span::before {
-        flex: 0 0 0.4rem;
-        margin: 0;
-    }
-
-    .result-category {
-        overflow-wrap: anywhere;
-    }
-
-    [class*="st-key-ai_note"] {
-        margin-top: 1.5rem;
-        padding: 1rem;
+        padding: 1.25rem !important;
     }
 }
 
-@media (max-width: 480px) {
+/* Desktop retains a compact two-column working area. */
+@media (min-width: 1024px) {
     .stMainBlockContainer {
-        padding: 0.875rem 1rem 1.75rem;
+        padding-top: 2rem;
+        padding-right: 1.5rem;
+        padding-bottom: 3rem;
+        padding-left: 1.5rem;
     }
 
     .app-header {
-        gap: 0.7rem;
-        margin-bottom: 1.25rem;
+        margin-bottom: 1.5rem;
     }
 
-    .brand-mark {
-        flex-basis: 2.5rem;
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 0.7rem;
+    .photo-tips {
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    .eyebrow,
-    .section-label {
-        font-size: 0.7rem;
-        letter-spacing: 0.07em;
+    .photo-tips span {
+        display: block;
+        text-align: center;
     }
 
-    .app-header h1 {
-        margin-top: 0.1rem;
-        font-size: clamp(1.75rem, 8vw, 2rem);
-    }
-
-    .app-header p {
-        max-width: 16rem;
-        font-size: clamp(1.125rem, 5.2vw, 1.25rem);
-    }
-
-    [class*="st-key-workspace"] [data-testid="stHorizontalBlock"] {
-        gap: 1.25rem;
-    }
-
-    [class*="st-key-input_panel"],
-    [class*="st-key-result_panel"] {
-        padding: 1rem !important;
-    }
-
-    .stSegmentedControl > div {
-        flex-wrap: wrap;
-    }
-
-    .stSegmentedControl button {
-        min-width: min(8rem, 100%);
-        flex: 1 1 8rem;
-    }
-
-    .stFileUploader section {
-        gap: 0.75rem;
-        padding: 0.875rem 0.625rem;
-    }
-
-    .stFileUploader section > div {
-        min-width: 0;
-    }
-
-    .empty-state {
-        min-height: 11rem;
-        padding: 1rem 0.25rem;
-    }
-
-    .empty-symbol {
-        width: 2.75rem;
-        height: 2.75rem;
-        margin-bottom: 0.75rem;
-    }
-
-    .confidence-value {
-        font-size: 1rem;
-    }
-
-    .prediction-row {
-        padding-block: 0.65rem;
-    }
-
-    [class*="st-key-result_panel"] ul {
-        padding-left: 1.2rem;
-    }
-
-    [class*="st-key-result_panel"] li {
-        margin-bottom: 0.4rem;
-        line-height: 1.6;
-    }
-
-    [class*="st-key-ai_note"] {
-        padding: 0.875rem;
+    .photo-tips span::before {
+        display: block;
+        margin: 0 auto 0.45rem;
     }
 }
