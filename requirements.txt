@@ -1,0 +1,9 @@
+streamlit
+tensorflow==2.15.1
+numpy<2
+Pillow
+pandas
+scikit-learn
+matplotlib
+pytest
+ruff

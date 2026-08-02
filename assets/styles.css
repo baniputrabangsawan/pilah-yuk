@@ -1,0 +1,277 @@
+:root {
+    --py-green-dark: #166534;
+    --py-green: #16a34a;
+    --py-green-light: #dcfce7;
+    --py-background: #f7f9f7;
+    --py-white: #ffffff;
+    --py-text: #17201a;
+    --py-muted: #5f6b63;
+    --py-border: #dde5df;
+}
+
+.stApp {
+    background: var(--py-background);
+    color: var(--py-text);
+}
+
+.stMainBlockContainer {
+    max-width: 1080px;
+    padding-top: 2.25rem;
+    padding-bottom: 3rem;
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+
+.brand-mark {
+    display: grid;
+    place-items: center;
+    flex: 0 0 3rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--py-green-dark);
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+}
+
+.app-header h1 {
+    margin: 0.15rem 0 0.1rem;
+    color: var(--py-text);
+    font-size: clamp(1.7rem, 4vw, 2.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+}
+
+.app-header p {
+    margin: 0;
+    color: var(--py-muted);
+    font-size: 1rem;
+}
+
+.eyebrow,
+.section-label {
+    color: var(--py-green-dark);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+[class*="st-key-input_panel"],
+[class*="st-key-result_panel"] {
+    min-height: 31rem;
+    background: var(--py-white);
+    border-color: var(--py-border) !important;
+    border-radius: 0.65rem !important;
+    padding: 1.35rem !important;
+}
+
+[class*="st-key-input_panel"] h3,
+[class*="st-key-result_panel"] h3 {
+    margin-top: 0.25rem;
+    color: var(--py-text);
+    font-size: 1.25rem;
+    letter-spacing: -0.015em;
+}
+
+.stSegmentedControl [data-testid="stBaseButton-segmented_controlActive"] {
+    border-color: var(--py-green-dark);
+    background: var(--py-green-light);
+    color: var(--py-green-dark);
+}
+
+.stFileUploader section {
+    border-color: var(--py-border);
+    background: #fbfcfb;
+}
+
+.stFileUploader section:hover {
+    border-color: var(--py-green);
+}
+
+.stButton > button[kind="primary"] {
+    min-height: 2.8rem;
+    border-color: var(--py-green-dark);
+    background: var(--py-green-dark);
+    font-weight: 700;
+    transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.stButton > button[kind="primary"]:hover {
+    border-color: var(--py-green);
+    background: var(--py-green);
+}
+
+.stButton > button[kind="primary"]:disabled {
+    border-color: var(--py-border);
+    background: #e8ede9;
+    color: #7a857d;
+}
+
+.empty-state {
+    display: flex;
+    min-height: 17rem;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 2rem;
+    text-align: center;
+}
+
+.empty-symbol {
+    width: 3.25rem;
+    height: 3.25rem;
+    margin-bottom: 1rem;
+    border: 2px solid var(--py-green);
+    border-radius: 50% 50% 50% 18%;
+    background: var(--py-green-light);
+    transform: rotate(-12deg);
+}
+
+.empty-state h3 {
+    margin: 0 0 0.4rem !important;
+}
+
+.empty-state p {
+    max-width: 24rem;
+    margin: 0;
+    color: var(--py-muted);
+}
+
+.photo-tips {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--py-border);
+}
+
+.photo-tips span {
+    color: var(--py-muted);
+    font-size: 0.78rem;
+    line-height: 1.35;
+    text-align: center;
+}
+
+.photo-tips span::before {
+    content: "";
+    display: block;
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0 auto 0.5rem;
+    border-radius: 50%;
+    background: var(--py-green);
+}
+
+.result-category {
+    margin: -0.15rem 0 1.25rem;
+    color: var(--py-green-dark);
+    font-size: clamp(1.7rem, 4vw, 2.15rem);
+    font-weight: 760;
+    letter-spacing: -0.035em;
+}
+
+.confidence-value {
+    color: var(--py-green-dark);
+    font-size: 1.15rem;
+    font-weight: 750;
+    text-align: right;
+}
+
+.stProgress > div > div > div > div {
+    background-color: var(--py-green);
+}
+
+.prediction-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #edf1ee;
+    color: var(--py-muted);
+}
+
+.prediction-row strong {
+    color: var(--py-text);
+}
+
+.result-separator {
+    height: 1px;
+    margin: 1.4rem 0;
+    background: var(--py-border);
+}
+
+[class*="st-key-ai_note"] {
+    margin-top: 1.5rem;
+    padding: 1rem 1.15rem;
+    border-left: 3px solid var(--py-green);
+    background: #eff8f1;
+}
+
+[class*="st-key-ai_note"] p {
+    color: #405047;
+}
+
+.stAlert {
+    border-radius: 0.45rem;
+}
+
+details {
+    border-color: var(--py-border) !important;
+    border-radius: 0.45rem !important;
+}
+
+@media (max-width: 700px) {
+    .stMainBlockContainer {
+        padding: 1.35rem 1rem 2rem;
+    }
+
+    .app-header {
+        align-items: flex-start;
+        margin-bottom: 1.25rem;
+    }
+
+    .brand-mark {
+        flex-basis: 2.6rem;
+        width: 2.6rem;
+        height: 2.6rem;
+    }
+
+    .app-header p {
+        max-width: 19rem;
+        font-size: 0.92rem;
+    }
+
+    [class*="st-key-input_panel"],
+    [class*="st-key-result_panel"] {
+        min-height: auto;
+        padding: 1rem !important;
+    }
+
+    .empty-state {
+        min-height: 13rem;
+        padding: 1.25rem 0.5rem;
+    }
+
+    .photo-tips {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-tips span {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        text-align: left;
+    }
+
+    .photo-tips span::before {
+        flex: 0 0 0.4rem;
+        margin: 0;
+    }
+}
