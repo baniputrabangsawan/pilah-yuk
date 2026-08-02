@@ -159,7 +159,8 @@
 
 .stImage img,
 .stCameraInput video,
-.stCameraInput canvas {
+.stCameraInput canvas,
+.stCameraInput img {
     display: block;
     width: 100% !important;
     max-width: 100% !important;
@@ -170,7 +171,8 @@
 }
 
 .stCameraInput video,
-.stCameraInput canvas {
+.stCameraInput canvas,
+.stCameraInput img {
     aspect-ratio: 4 / 3;
     max-height: min(52svh, 420px);
     object-fit: cover;

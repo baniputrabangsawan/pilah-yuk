@@ -113,8 +113,10 @@ def select_image_source(source_type: str) -> BinaryIO | None:
     return st.camera_input("Ambil foto sampah")
 
 
-def show_image_preview(source: BinaryIO | None) -> Image.Image | None:
-    """Validate and render an image preview without persisting the upload."""
+def load_selected_image(
+    source: BinaryIO | None, source_type: str
+) -> Image.Image | None:
+    """Validate an in-memory image and preview uploaded files."""
     if source is None:
         return None
     try:
@@ -123,7 +125,8 @@ def show_image_preview(source: BinaryIO | None) -> Image.Image | None:
         st.error(str(exc))
         return None
 
-    st.image(image, caption="Gambar yang akan dianalisis", width="stretch")
+    if source_type == "Unggah file":
+        st.image(image, caption="Gambar yang akan dianalisis", width="stretch")
     return image
 
 
@@ -237,7 +240,7 @@ def main() -> None:
             source = select_image_source(source_type)
             st.caption("JPEG atau PNG · Maks. 10 MB · Tidak disimpan")
 
-            image = show_image_preview(source)
+            image = load_selected_image(source, source_type)
 
             analyze = st.button(
                 "Analisis gambar",
