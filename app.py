@@ -17,7 +17,8 @@ from src.recommendations import get_recommendation
 from src.utils import InvalidImageError, load_image
 
 CONFIDENCE_THRESHOLD = 0.60
-STYLES_PATH = Path("assets/styles.css")
+PROJECT_ROOT = Path(__file__).resolve().parent
+STYLES_PATH = PROJECT_ROOT / "assets" / "styles.css"
 
 
 @st.cache_resource
@@ -176,60 +177,63 @@ def main() -> None:
             "Aplikasi tidak akan membuat prediksi pengganti."
         )
 
-    input_column, result_column = st.columns([1, 1.08], gap="large")
-    result = None
+    with st.container(key="workspace"):
+        input_column, result_column = st.columns([1, 1.08], gap="large")
+        result = None
 
-    with input_column, st.container(border=True, key="input_panel"):
-        st.markdown(
-            '<div class="section-label">Langkah 1</div>', unsafe_allow_html=True
-        )
-        st.subheader("Masukkan gambar sampah")
-        source_type = st.segmented_control(
-            "Sumber gambar",
-            ("Unggah file", "Kamera"),
-            default="Unggah file",
-            label_visibility="collapsed",
-            width="stretch",
-        )
-        source = (
-            st.file_uploader(
-                "Pilih gambar",
-                type=("jpg", "jpeg", "png"),
-                help="Format JPEG atau PNG, maksimal 10 MB.",
+        with input_column, st.container(border=True, key="input_panel"):
+            st.markdown(
+                '<div class="section-label">Langkah 1</div>', unsafe_allow_html=True
             )
-            if source_type == "Unggah file"
-            else st.camera_input("Ambil foto sampah")
-        )
-        st.caption("JPEG atau PNG · Maksimal 10 MB · Diproses tanpa disimpan")
+            st.subheader("Masukkan gambar sampah")
+            source_type = st.segmented_control(
+                "Sumber gambar",
+                ("Unggah file", "Kamera"),
+                default="Unggah file",
+                label_visibility="collapsed",
+                width="stretch",
+            )
+            source = (
+                st.file_uploader(
+                    "Pilih gambar",
+                    type=("jpg", "jpeg", "png"),
+                    help="Format JPEG atau PNG, maksimal 10 MB.",
+                )
+                if source_type == "Unggah file"
+                else st.camera_input("Ambil foto sampah")
+            )
+            st.caption("JPEG atau PNG · Maksimal 10 MB · Diproses tanpa disimpan")
 
-        image = None
-        if source is not None:
-            try:
-                image = load_image(source)
-                st.image(image, caption="Gambar yang akan dianalisis", width="stretch")
-            except InvalidImageError as exc:
-                st.error(str(exc))
+            image = None
+            if source is not None:
+                try:
+                    image = load_image(source)
+                    st.image(
+                        image, caption="Gambar yang akan dianalisis", width="stretch"
+                    )
+                except InvalidImageError as exc:
+                    st.error(str(exc))
 
-        analyze = st.button(
-            "Analisis gambar",
-            type="primary",
-            disabled=image is None or not model_ready,
-            width="stretch",
-        )
+            analyze = st.button(
+                "Analisis gambar",
+                type="primary",
+                disabled=image is None or not model_ready,
+                width="stretch",
+            )
 
-        if analyze:
-            try:
-                with st.spinner("Menganalisis gambar secara lokal..."):
-                    model, labels = get_classifier_resources()
-                    result = predict(model, labels, image)
-            except (ClassifierError, OSError, ValueError) as exc:
-                st.error(str(exc))
+            if analyze:
+                try:
+                    with st.spinner("Menganalisis gambar secara lokal..."):
+                        model, labels = get_classifier_resources()
+                        result = predict(model, labels, image)
+                except (ClassifierError, OSError, ValueError) as exc:
+                    st.error(str(exc))
 
-    with result_column, st.container(border=True, key="result_panel"):
-        if result is None:
-            show_empty_state()
-        else:
-            show_result(result)
+        with result_column, st.container(border=True, key="result_panel"):
+            if result is None:
+                show_empty_state()
+            else:
+                show_result(result)
 
     show_responsible_ai()
     show_disclosure()

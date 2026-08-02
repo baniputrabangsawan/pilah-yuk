@@ -12,8 +12,9 @@ from PIL import Image
 
 from src.utils import prepare_image_for_model
 
-MODEL_PATH = Path("model/keras_model.h5")
-LABELS_PATH = Path("model/labels.txt")
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+MODEL_PATH = PROJECT_ROOT / "model" / "keras_model.h5"
+LABELS_PATH = PROJECT_ROOT / "model" / "labels.txt"
 
 
 class ClassifierError(RuntimeError):

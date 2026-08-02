@@ -12,12 +12,36 @@
 .stApp {
     background: var(--py-background);
     color: var(--py-text);
+    overflow-x: clip;
 }
 
 .stMainBlockContainer {
+    width: 100%;
     max-width: 1080px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
     padding-top: 2.25rem;
     padding-bottom: 3rem;
+}
+
+.stMainBlockContainer,
+.stMainBlockContainer * {
+    box-sizing: border-box;
+}
+
+.stMainBlockContainer p,
+.stMainBlockContainer li,
+.stMainBlockContainer label,
+.stMainBlockContainer button {
+    font-size: max(0.95rem, 15px);
+    line-height: 1.55;
+}
+
+[class*="st-key-workspace"],
+[class*="st-key-workspace"] [data-testid="stHorizontalBlock"],
+[class*="st-key-workspace"] [data-testid="column"] {
+    min-width: 0;
+    max-width: 100%;
 }
 
 .app-header {
@@ -44,7 +68,7 @@
 .app-header h1 {
     margin: 0.15rem 0 0.1rem;
     color: var(--py-text);
-    font-size: clamp(1.7rem, 4vw, 2.25rem);
+    font-size: clamp(2.375rem, 4vw, 2.625rem);
     line-height: 1.05;
     letter-spacing: -0.035em;
 }
@@ -52,7 +76,9 @@
 .app-header p {
     margin: 0;
     color: var(--py-muted);
-    font-size: 1rem;
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    line-height: 1.35;
+    overflow-wrap: anywhere;
 }
 
 .eyebrow,
@@ -87,6 +113,27 @@
     color: var(--py-green-dark);
 }
 
+.stSegmentedControl,
+.stSegmentedControl > div,
+.stSegmentedControl button {
+    max-width: 100%;
+}
+
+.stSegmentedControl button {
+    min-height: 2.75rem;
+    white-space: normal;
+}
+
+.stFileUploader,
+.stFileUploader > div,
+.stFileUploader section,
+.stCameraInput,
+.stCameraInput > div {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
 .stFileUploader section {
     border-color: var(--py-border);
     background: #fbfcfb;
@@ -94,6 +141,35 @@
 
 .stFileUploader section:hover {
     border-color: var(--py-green);
+}
+
+.stFileUploader section button,
+.stCameraInput button {
+    min-height: 2.75rem;
+}
+
+.stFileUploader [data-testid="stFileUploaderFile"],
+.stFileUploader [data-testid="stFileUploaderFileName"] {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    text-overflow: ellipsis;
+}
+
+.stImage,
+.stImage > div,
+.stImage img,
+.stCameraInput video,
+.stCameraInput canvas {
+    max-width: 100% !important;
+}
+
+.stImage img,
+.stCameraInput video,
+.stCameraInput canvas {
+    height: auto !important;
+    object-fit: contain;
 }
 
 .stButton > button[kind="primary"] {
@@ -155,8 +231,8 @@
 
 .photo-tips span {
     color: var(--py-muted);
-    font-size: 0.78rem;
-    line-height: 1.35;
+    font-size: 0.875rem;
+    line-height: 1.45;
     text-align: center;
 }
 
@@ -192,9 +268,20 @@
 .prediction-row {
     display: flex;
     justify-content: space-between;
+    gap: 1rem;
+    min-width: 0;
     padding: 0.5rem 0;
     border-bottom: 1px solid #edf1ee;
     color: var(--py-muted);
+}
+
+.prediction-row span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.prediction-row strong {
+    flex: 0 0 auto;
 }
 
 .prediction-row strong {
@@ -223,35 +310,76 @@
 }
 
 details {
+    max-width: 100%;
     border-color: var(--py-border) !important;
     border-radius: 0.45rem !important;
 }
 
-@media (max-width: 700px) {
+.stAlert,
+.stProgress,
+details,
+code {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 768px) {
     .stMainBlockContainer {
-        padding: 1.35rem 1rem 2rem;
+        width: 100%;
+        padding: 1.25rem 1.125rem 2rem;
+    }
+
+    [class*="st-key-workspace"] [data-testid="stHorizontalBlock"] {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    [class*="st-key-workspace"] [data-testid="column"] {
+        width: 100% !important;
+        flex: 1 1 100% !important;
     }
 
     .app-header {
         align-items: flex-start;
-        margin-bottom: 1.25rem;
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
     }
 
     .brand-mark {
-        flex-basis: 2.6rem;
-        width: 2.6rem;
-        height: 2.6rem;
+        flex-basis: 2.75rem;
+        width: 2.75rem;
+        height: 2.75rem;
+    }
+
+    .app-header h1 {
+        font-size: clamp(1.75rem, 7vw, 2rem);
+        line-height: 1.1;
     }
 
     .app-header p {
-        max-width: 19rem;
-        font-size: 0.92rem;
+        max-width: 30rem;
+        font-size: clamp(1.125rem, 4.8vw, 1.3rem);
     }
 
     [class*="st-key-input_panel"],
     [class*="st-key-result_panel"] {
         min-height: auto;
-        padding: 1rem !important;
+        padding: 1.125rem !important;
+    }
+
+    .stButton > button[kind="primary"] {
+        width: 100%;
+        min-height: 3rem;
+    }
+
+    .stFileUploader section {
+        padding-inline: 0.75rem;
+    }
+
+    .stImage img,
+    .stCameraInput video,
+    .stCameraInput canvas {
+        max-height: 65vh;
     }
 
     .empty-state {
@@ -273,5 +401,107 @@ details {
     .photo-tips span::before {
         flex: 0 0 0.4rem;
         margin: 0;
+    }
+
+    .result-category {
+        overflow-wrap: anywhere;
+    }
+
+    [class*="st-key-ai_note"] {
+        margin-top: 1.5rem;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stMainBlockContainer {
+        padding: 0.875rem 1rem 1.75rem;
+    }
+
+    .app-header {
+        gap: 0.7rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .brand-mark {
+        flex-basis: 2.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 0.7rem;
+    }
+
+    .eyebrow,
+    .section-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.07em;
+    }
+
+    .app-header h1 {
+        margin-top: 0.1rem;
+        font-size: clamp(1.75rem, 8vw, 2rem);
+    }
+
+    .app-header p {
+        max-width: 16rem;
+        font-size: clamp(1.125rem, 5.2vw, 1.25rem);
+    }
+
+    [class*="st-key-workspace"] [data-testid="stHorizontalBlock"] {
+        gap: 1.25rem;
+    }
+
+    [class*="st-key-input_panel"],
+    [class*="st-key-result_panel"] {
+        padding: 1rem !important;
+    }
+
+    .stSegmentedControl > div {
+        flex-wrap: wrap;
+    }
+
+    .stSegmentedControl button {
+        min-width: min(8rem, 100%);
+        flex: 1 1 8rem;
+    }
+
+    .stFileUploader section {
+        gap: 0.75rem;
+        padding: 0.875rem 0.625rem;
+    }
+
+    .stFileUploader section > div {
+        min-width: 0;
+    }
+
+    .empty-state {
+        min-height: 11rem;
+        padding: 1rem 0.25rem;
+    }
+
+    .empty-symbol {
+        width: 2.75rem;
+        height: 2.75rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .confidence-value {
+        font-size: 1rem;
+    }
+
+    .prediction-row {
+        padding-block: 0.65rem;
+    }
+
+    [class*="st-key-result_panel"] ul {
+        padding-left: 1.2rem;
+    }
+
+    [class*="st-key-result_panel"] li {
+        margin-bottom: 0.4rem;
+        line-height: 1.6;
+    }
+
+    [class*="st-key-ai_note"] {
+        padding: 0.875rem;
     }
 }
