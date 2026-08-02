@@ -1,8 +1,10 @@
 """Streamlit entry point for Pilah Yuk."""
 
 from pathlib import Path
+from typing import BinaryIO
 
 import streamlit as st
+from PIL import Image
 
 from src.classifier import (
     LABELS_PATH,
@@ -17,6 +19,7 @@ from src.recommendations import get_recommendation
 from src.utils import InvalidImageError, load_image
 
 CONFIDENCE_THRESHOLD = 0.60
+IMAGE_FILE_TYPES = ("jpg", "jpeg", "png")
 PROJECT_ROOT = Path(__file__).resolve().parent
 STYLES_PATH = PROJECT_ROOT / "assets" / "styles.css"
 
@@ -97,6 +100,31 @@ def show_empty_state(source_type: str) -> None:
         """,
         unsafe_allow_html=True,
     )
+
+
+def select_image_source(source_type: str) -> BinaryIO | None:
+    """Render the selected image input widget and return its in-memory file."""
+    if source_type == "Unggah file":
+        return st.file_uploader(
+            "Pilih gambar",
+            type=IMAGE_FILE_TYPES,
+            help="Format JPEG atau PNG, maksimal 10 MB.",
+        )
+    return st.camera_input("Ambil foto sampah")
+
+
+def show_image_preview(source: BinaryIO | None) -> Image.Image | None:
+    """Validate and render an image preview without persisting the upload."""
+    if source is None:
+        return None
+    try:
+        image = load_image(source)
+    except InvalidImageError as exc:
+        st.error(str(exc))
+        return None
+
+    st.image(image, caption="Gambar yang akan dianalisis", width="stretch")
+    return image
 
 
 def show_result(result: Prediction) -> None:
@@ -206,26 +234,10 @@ def main() -> None:
                 label_visibility="collapsed",
                 width="stretch",
             )
-            source = (
-                st.file_uploader(
-                    "Pilih gambar",
-                    type=("jpg", "jpeg", "png"),
-                    help="Format JPEG atau PNG, maksimal 10 MB.",
-                )
-                if source_type == "Unggah file"
-                else st.camera_input("Ambil foto sampah")
-            )
+            source = select_image_source(source_type)
             st.caption("JPEG atau PNG · Maks. 10 MB · Tidak disimpan")
 
-            image = None
-            if source is not None:
-                try:
-                    image = load_image(source)
-                    st.image(
-                        image, caption="Gambar yang akan dianalisis", width="stretch"
-                    )
-                except InvalidImageError as exc:
-                    st.error(str(exc))
+            image = show_image_preview(source)
 
             analyze = st.button(
                 "Analisis gambar",

@@ -208,7 +208,7 @@
 
 .empty-state,
 .camera-state {
-    padding: 1rem 0.25rem;
+    padding: 1rem 0.25rem 1.5rem;
 }
 
 .empty-state {
@@ -368,7 +368,7 @@ details {
 /* Desktop retains a compact two-column working area. */
 @media (min-width: 1024px) {
     .stMainBlockContainer {
-        padding-top: 2rem;
+        padding-top: 3.5rem;
         padding-right: 1.5rem;
         padding-bottom: 3rem;
         padding-left: 1.5rem;
