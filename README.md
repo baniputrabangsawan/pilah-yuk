@@ -119,9 +119,6 @@ pilah-yuk/
 ├── requirements.txt           # Dependensi Python produksi
 ├── runtime.txt                # Runtime deployment bila diperlukan platform hosting
 ├── README.md                  # Dokumentasi utama proyek ini
-├── DESIGN.md                  # Desain, scope, dan kebutuhan produk
-├── DISCLOSURE.md              # Transparansi tools, model, data, dan bantuan coding
-├── AGENTS.md                  # Aturan engineering proyek
 │
 ├── assets/
 │   └── styles.css             # Gaya visual antarmuka lokal
@@ -421,7 +418,7 @@ AI pada Pilah Yuk adalah bantuan awal, bukan keputusan akhir. Nilai *confidence*
 
 Ambang 60% adalah nilai awal. Nilai tersebut perlu dievaluasi ulang berdasarkan hasil pengujian model nyata, terutama untuk data lokal dan kelas yang sering tertukar.
 
-Untuk detail risiko dan batasan, baca [`docs/RESPONSIBLE_AI.md`](docs/RESPONSIBLE_AI.md). Transparansi tools, model, dataset, dan bantuan coding tersedia di [`DISCLOSURE.md`](DISCLOSURE.md).
+Untuk detail risiko dan batasan, baca [`docs/RESPONSIBLE_AI.md`](docs/RESPONSIBLE_AI.md).
 
 ## Pengujian dan Kualitas Kode
 
@@ -443,8 +440,6 @@ Test unit tidak membutuhkan model produksi untuk memeriksa logika penting, terma
 
 ## Dokumentasi Terkait
 
-- [`DESIGN.md`](DESIGN.md): tujuan produk, scope MVP, desain arsitektur, dan rencana data.
-- [`DISCLOSURE.md`](DISCLOSURE.md): teknologi, status model/dataset, dan bantuan coding yang digunakan.
 - [`docs/RESPONSIBLE_AI.md`](docs/RESPONSIBLE_AI.md): risiko AI, privasi, dan mitigasi.
 - [`model/README.md`](model/README.md): ketentuan penyimpanan model lokal.
 - [`model/train_notes.md`](model/train_notes.md): template catatan training dan evaluasi.
@@ -458,7 +453,7 @@ Test unit tidak membutuhkan model produksi untuk memeriksa logika penting, terma
 4. Jangan membuat prediksi pengganti ketika model tidak tersedia.
 5. Tambahkan atau perbarui test untuk perubahan logika non-trivial.
 6. Jalankan Ruff dan pytest sebelum membuka pull request.
-7. Perbarui `DISCLOSURE.md`, `model/train_notes.md`, dan dokumentasi data bila model, dataset, tools, atau proses training berubah.
+7. Perbarui `model/train_notes.md` dan dokumentasi data bila model, dataset, atau proses training berubah.
 
 ## Lisensi dan Atribusi
 

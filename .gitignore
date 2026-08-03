@@ -7,3 +7,10 @@ __pycache__/
 .env.*
 .streamlit/secrets.toml
 converted_keras/
+
+# Dokumen kerja internal; jangan ikut dipublikasikan.
+AGENTS.md
+DESIGN.md
+DISCLOSURE.md
+PLAN.md
+UI.md

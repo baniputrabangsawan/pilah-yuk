@@ -200,10 +200,10 @@ def show_disclosure() -> None:
 
             Model lokal hasil ekspor Google Teachable Machine. Tidak ada API klasifikasi eksternal.
 
-            **Data dan transparansi**
+            **Data**
 
-            TrashNet menjadi sumber data awal dan dilengkapi pengujian foto lokal. Rincian tools,
-            model, dataset, dan bantuan coding tersedia di `DISCLOSURE.md`.
+            TrashNet menjadi sumber data awal dan dilengkapi pengujian foto lokal. Sumber dan
+            lisensi dataset perlu diverifikasi sebelum digunakan atau didistribusikan.
             """
         )
 
